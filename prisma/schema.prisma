@@ -23,19 +23,20 @@ model Post {
   updatedAt DateTime @updatedAt
   published Boolean  @default(false)
   title     String   @db.VarChar(255)
-  author    User?    @relation(fields: [authorId], references: [id])
+  author    User?    @relation(fields: [authorId], references: [id],onUpdate: Cascade ,onDelete: Cascade)
   authorId  Int?
 }
 
 enum Role {
   USER
   ADMIN
+  MANAGER
 }
 
 model Profile {
   id     Int     @default(autoincrement()) @id
   bio    String?
-  user   User    @relation(fields: [userId], references: [id])
+  user   User    @relation(fields: [userId], references: [id],onUpdate: Cascade ,onDelete: Cascade) 
   userId Int     @unique
 }
 

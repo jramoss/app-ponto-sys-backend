@@ -31,18 +31,21 @@ class userService {
    async create (email:string,name:string){
         const user = await this.userrepository.create(email,name)
         if (user) {
-           return user
+           return  {
+            erro: false,
+            message: "sucesso ao cadastrar usuário",
+            user
+         }
         } 
-        return "Usuário ja existe"
+        return {erro: true ,message: "Erro ao cadastrar usuário"}
    }
 
    async delete (id:Number){
-      const user = await this.userrepository.delete(Number(id))
-      if (user) {
-         return user
-      } else {
-         return {erro: "update errro"}
-      }
+     const userDel = await this.userrepository.delete(Number(id))
+     if (userDel) {
+         return userDel
+     }
+ 
    }
 }
 

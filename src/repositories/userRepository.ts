@@ -16,7 +16,7 @@ class userRepository {
         if(user){
             return user
         }
-        return {Erro: "nenhum usuarios encontrado."}
+        return {Erro: true , message: "nenhum usuarios encontrado."}
     }
        
     async create(email:string , name:string){
@@ -51,19 +51,12 @@ class userRepository {
     async delete(id:number): Promise<User| any > {
         const user = await this.prisma.user.findFirst({where: { id }})
         if (user) {
-            const userUpdated = await this.prisma.user.delete({
-                where:{
-                    id
-                }
-            })
-            if(userUpdated){
-                console.log(userUpdated)
-                return userUpdated
-            }
+            const userDel = await this.prisma.user.delete({ where:{id}})
+            return {erro: false, message: `Sucesso ao deletado com ID: ${id}` }
         } else {
-            return {erro: "Erro ao delete user"}
+            return {erro: true, message: "Usuarios não encontrado"}
         }
-        return 
+        return {erro: true, message: "Erro ao deletar usuarios"}
     }
 }
 
