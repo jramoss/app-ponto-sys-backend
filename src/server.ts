@@ -1,15 +1,25 @@
 import express from "express";
 import router from "./routes/index";
 import cors from "cors";
-import { encode } from "punycode";
+import dotenv from "dotenv";
+import path from "path";
 
 export class App{
   public server: express.Application = express();
 
   constructor(){
+    this.configs();
     this.server;
     this.middleware();
     this.router();
+  }
+  private configs(){
+
+    dotenv.config({ 
+      path: path.resolve(process.cwd(),'.env'),
+      debug: true, 
+      override: true 
+    });
   }
 
   private middleware(){
@@ -17,7 +27,7 @@ export class App{
         origin: "*"
     }));
     this.server.use(express.json());
-
+   
   }
 
   private router(){
