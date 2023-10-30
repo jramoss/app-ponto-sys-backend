@@ -1,8 +1,7 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import router from "./routes/index";
 import cors from "cors";
-import dotenv from "dotenv";
-import path from "path";
+import dotenv from 'dotenv'; 
 
 export class App{
   public server: express.Application = express();
@@ -14,12 +13,10 @@ export class App{
     this.router();
   }
   private configs(){
-
-    dotenv.config({ 
-      path: path.resolve(process.cwd(),'.env'),
-      debug: true, 
-      override: true 
-    });
+    dotenv.config({
+      path: "../.env"
+  }); 
+    
   }
 
   private middleware(){
@@ -27,6 +24,8 @@ export class App{
         origin: "*"
     }));
     this.server.use(express.json());
+    this.server.use(urlencoded({ extended: true }))
+
    
   }
 

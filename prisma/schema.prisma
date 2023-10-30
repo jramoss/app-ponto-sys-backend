@@ -14,6 +14,7 @@ model User {
   name      String?
   role      Role     @default(USER)
   posts     Post[]
+  profile Profile?
 }
 
 model Post {
@@ -29,4 +30,23 @@ model Post {
 enum Role {
   USER
   ADMIN
+}
+
+model Profile {
+  id     Int     @default(autoincrement()) @id
+  bio    String?
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
+}
+
+model addresses {
+  id          Int      @id @default(autoincrement())
+  cep         String   @unique
+  logradouro  String   @db.VarChar(255)
+  complemento String   @db.VarChar(255)
+  bairro      String   @db.VarChar(255)
+  localidade  String   @db.VarChar(255)
+  uf          String   @db.VarChar(255)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt @map("Updated at")
 }
