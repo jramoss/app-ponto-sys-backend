@@ -1,16 +1,11 @@
-import { Request, Response, Router, request, response } from 'express';
+import Router from 'express';
 import routeUsers from './routeusers';
+import routerHome from './home';
 
-const route = Router()
+const router = Router()
 
-route.get('/',(req:Request,res:Response)=>{
-    return res.status(200).send(
-        {
-        status: res.status,
-        msg: "ok"
-        }
-    )
-})
-route.use("/users",routeUsers)
+router.use("/",routerHome)
+router.use("/users",routeUsers)
 
-export default route
+
+export default router
