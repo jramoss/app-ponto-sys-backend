@@ -6,9 +6,9 @@ const routeUsers = Router()
 // lista 
 routeUsers.get('/',UserController.index)
 // show
-routeUsers.get('/:id',UserController.show)
+routeUsers.put('/:id',UserController.show)
 // update 
-routeUsers.put('/:id',UserController.update)
+routeUsers.patch('/:id',UserController.update)
 // create
 routeUsers.post('/',UserController.create)
 // delete 
